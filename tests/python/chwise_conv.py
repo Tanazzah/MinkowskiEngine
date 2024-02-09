@@ -28,7 +28,7 @@ from MinkowskiEngine import SparseTensor, MinkowskiChannelwiseConvolution
 import MinkowskiEngine as ME
 
 
-from tests.common import data_loader
+from tests.python.common import data_loader
 
 
 def get_random_coords(dimension=2, tensor_stride=2):
@@ -55,7 +55,7 @@ class TestConvolution(unittest.TestCase):
 
         feats = feats.double()
         feats.requires_grad_()
-        input = SparseTensor(feats, coords=coords)
+        input = SparseTensor(feats, coordinates=coords)
 
         conv = MinkowskiChannelwiseConvolution(
             in_channels,
@@ -85,7 +85,8 @@ class TestConvolution(unittest.TestCase):
 
         feats = feats.double()
         feats.requires_grad_()
-        input = SparseTensor(feats, coords=coords).to(device)
+        feats=feats.to(device)
+        input = SparseTensor(feats, coordinates=coords.to(device))
         conv = MinkowskiChannelwiseConvolution(
             in_channels,
             kernel_size=3,

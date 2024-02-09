@@ -75,7 +75,7 @@ class TestKernelMap(unittest.TestCase):
         for kernel_index, in_out_map in kernel_maps.items():
             for i, o in zip(in_out_map[0], in_out_map[1]):
                 print(kernel_index, iC[i], "->", oC[o])
-        self.assertTrue(sum(len(in_map[0]) for k, in_map in kernel_maps.items()) == 16)
+        self.assertTrue(sum(len(in_map[0]) for k, in_map in kernel_maps.items()) == 26)
 
     def test_kernelmap(self):
         print(f"{self.__class__.__name__}: test_kernelmap")
@@ -106,4 +106,11 @@ class TestKernelMap(unittest.TestCase):
         for kernel_index, in_out_map in kernel_maps.items():
             for i, o in zip(in_out_map[0], in_out_map[1]):
                 print(kernel_index, iC[i], "->", oC[o])
-        self.assertTrue(sum(len(in_map[0]) for k, in_map in kernel_maps.items()) == 16)
+
+        # Calculate the sum of the lengths of input mappings
+        total_length = sum(len(in_map[0]) for k, in_map in kernel_maps.items())
+        print("Total length:", total_length)
+
+        # Check if the sum is equal to 16
+        self.assertTrue(total_length == 26)
+

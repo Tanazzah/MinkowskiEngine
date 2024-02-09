@@ -29,7 +29,7 @@ from MinkowskiEngine import SparseTensor, MinkowskiConvolution, \
 import MinkowskiEngine as ME
 
 
-from tests.common import data_loader
+from tests.python.common import data_loader
 
 
 def get_random_coords(dimension=2, tensor_stride=2):
@@ -56,9 +56,10 @@ class TestConvolution(unittest.TestCase):
 
         feats = feats.double()
         feats.requires_grad_()
-        input = SparseTensor(feats, coords=coords)
-        cm = input.coords_man
-        print(cm._get_coords_key(1))
+        input = SparseTensor(feats, coordinates=coords)
+        #cm is coordinate manager according to our understanding
+        cm = input.coordinate_manager
+        print(cm._get_coordinate_map_key(1))
 
         conv = MinkowskiConvolution(
             in_channels,
@@ -73,8 +74,8 @@ class TestConvolution(unittest.TestCase):
         output = conv(input, out_coords)
 
         # To specify the tensor stride
-        out_coords_key = cm.create_coords_key(out_coords, tensor_stride=2)
-        output = conv(input, out_coords_key)
+        out_coords_key = cm.insert_and_map(out_coords, tensor_stride=2)
+        output = conv(input, out_coords_key[0])
         print('Conv output: ', output)
 
         output.F.sum().backward()
@@ -94,9 +95,9 @@ class TestConvolution(unittest.TestCase):
         feats = feats.double()
         feats.requires_grad_()
 
-        input = SparseTensor(feats, coords=coords, tensor_stride=2)
-        cm = input.coords_man
-        print(cm._get_coords_key(2))
+        input = SparseTensor(feats, coordinates=coords, tensor_stride=2)
+        cm = input.coordinate_manager
+        print(cm._get_coordinate_map_key(2))
 
         conv_tr = MinkowskiConvolutionTranspose(
             in_channels,

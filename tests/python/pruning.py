@@ -180,7 +180,7 @@ class TestPruning(unittest.TestCase):
             channels[1],
             kernel_size=3,
             stride=2,
-            generate_new_coords=True,
+            #generate_new_coords=True,
             dimension=D,
         ).double()
         conv1 = MinkowskiConvolution(
@@ -191,7 +191,7 @@ class TestPruning(unittest.TestCase):
             channels[2],
             kernel_size=3,
             stride=2,
-            generate_new_coords=True,
+            #generate_new_coords=True,
             dimension=D,
         ).double()
         conv2 = MinkowskiConvolution(

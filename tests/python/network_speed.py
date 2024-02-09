@@ -33,9 +33,10 @@ except ImportError:
 
 import torch
 import MinkowskiEngine as ME
-from MinkowskiCommon import convert_to_int_list
+from MinkowskiEngine import MinkowskiCommon 
+#from MinkowskiCommon import convert_to_int_list
 import examples.minkunet as UNets
-from tests.python.common import data_loader, load_file, batched_coordinates
+from tests.python.common import data_loader, load_file
 from examples.common import Timer
 
 # Check if the weights and file exist and download
@@ -45,7 +46,6 @@ if not os.path.isfile("weights.pth"):
         "http://cvgl.stanford.edu/data2/minkowskiengine/weights.pth", "weights.pth"
     )
     urlretrieve("http://cvgl.stanford.edu/data2/minkowskiengine/1.ply", "1.ply")
-
 parser = argparse.ArgumentParser()
 parser.add_argument("--file_name", type=str, default="1.ply")
 parser.add_argument("--weights", type=str, default="weights.pth")
@@ -59,15 +59,18 @@ def quantize(coordinates):
     coordinate_manager = ME.CoordinateManager(
         D=D, coordinate_map_type=ME.CoordinateMapType.CPU
     )
-    coordinate_map_key = ME.CoordinateMapKey(convert_to_int_list(1, D), "")
+    coordinate_map_key = ME.CoordinateMapKey(ME.Common.convert_to_int_list(1, D), "")
     key, (unique_map, inverse_map) = coordinate_manager.insert_and_map(
         coordinates, *coordinate_map_key.get_key()
     )
+    print("Unique map",unique_map)
     return unique_map, inverse_map
 
 
 def load_file(file_name, voxel_size):
+    print(file_name)
     pcd = o3d.io.read_point_cloud(file_name)
+    print(pcd)
     coords = torch.from_numpy(np.array(pcd.points))
     feats = torch.from_numpy(np.array(pcd.colors)).float()
 
@@ -114,7 +117,7 @@ def train(coords, colors, model):
 
 def test_network(coords, feats, model, batch_sizes, forward_only=True):
     for batch_size in batch_sizes:
-        bcoords = batched_coordinates([coords for i in range(batch_size)])
+        bcoords = ME.utils.collation.batched_coordinates([coords for i in range(batch_size)])
         bfeats = torch.cat([feats for i in range(batch_size)], 0)
         if forward_only:
             with torch.no_grad():

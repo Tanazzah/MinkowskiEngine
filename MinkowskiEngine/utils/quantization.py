@@ -130,6 +130,7 @@ def _auto_floor(array):
     if isinstance(array, np.ndarray):
         return np.floor(array)
     else:
+        array = array.float()
         return torch.floor(array)
 
 

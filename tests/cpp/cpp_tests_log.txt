@@ -1,0 +1,41 @@
++ export CXX=g++-7
++ CXX=g++-7
++ python -m unittest coordinate_map_gpu_test
+[31;1m/workspace/me/src/coordinate_map.hpp:186[0m Allocate 4 coordinates.
+[31;1m/workspace/me/src/coordinate_map.hpp:133[0m tensor stride: [1]
+[31;1m/workspace/me/src/coordinate_map_gpu.cuh:138[0m Reserve map of 8 for concurrent_unordered_map of size 4
+[31;1m/workspace/me/src/coordinate_map_gpu.cuh:142[0m Done concurrent_unordered_map creation
+[31;1m/workspace/me/src/coordinate_map_gpu.cuh:145[0m Reserved concurrent_unordered_map
+[31;1m/workspace/me/src/coordinate_map_gpu.cuh:106[0m tensor_stride [1]
+[31;1m/workspace/me/src/storage.cuh:136[0m resizing from 0 to 1
+[31;1m/workspace/me/src/coordinate_map_gpu.cuh:109[0m device tensor_stride set
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:203[0m key iterator length 4
+[31;1m/workspace/me/src/storage.cuh:77[0m Allocating 4 gpu storage at 0x7f5bb6800a00
+[31;1m/workspace/me/src/storage.cuh:77[0m Allocating 4 gpu storage at 0x7f5bb6800c00
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:221[0m Reserved and copiedm 4 x 2 coordinates
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:225[0m nm_threads 4
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:227[0m nm_blocks 1
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:229[0m unused_key 4294967295
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:239[0m Map size: 3
+[31;1m/workspace/me/src/storage.cuh:136[0m resizing from 4 to 3
+[31;1m/workspace/me/src/storage.cuh:136[0m resizing from 4 to 3
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:255[0m Number of successful insertion 3
+[31;1m/workspace/me/tests/cpp/coordinate_map_gpu_test.cu:167[0m Map size 3
+[31;1m/workspace/me/tests/cpp/coordinate_map_gpu_test.cu:170[0m Find coordinates.
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:329[0m 5 queries for find.
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:332[0m Find functor initialized.
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:335[0m Valid functor initialized.
+[31;1m/workspace/me/src/storage.cuh:77[0m Allocating 5 gpu storage at 0x7f5bb6800c00
+[31;1m/workspace/me/src/storage.cuh:77[0m Allocating 5 gpu storage at 0x7f5bb6801000
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:340[0m Initialized functors.
+[31;1m/workspace/me/src/coordinate_map_gpu.cu:354[0m Number of valid 3
+[31;1m/workspace/me/src/storage.cuh:136[0m resizing from 5 to 3
+[31;1m/workspace/me/src/storage.cuh:136[0m resizing from 5 to 3
+[31;1m/workspace/me/src/storage.cuh:44[0m copy storage constructor
+[31;1m/workspace/me/src/storage.cuh:77[0m Allocating 3 gpu storage at 0x7f5bb6801000
+[31;1m/workspace/me/src/storage.cuh:44[0m copy storage constructor
+[31;1m/workspace/me/src/storage.cuh:77[0m Allocating 3 gpu storage at 0x7f5bb6801400
+[31;1m/workspace/me/src/storage.cuh:82[0m Deallocating 3 gpu storage at 0x7f5bb6800c00
+[31;1m/workspace/me/src/storage.cuh:82[0m Deallocating 3 gpu storage at 0x7f5bb6801200
+[31;1m/workspace/me/tests/cpp/coordinate_map_gpu_test.cu:176[0m 3 keys found.
+test_all.sh: line 13:  1225 Segmentation fault      (core dumped) python -m unittest coordinate_map_gpu_test
